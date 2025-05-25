@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Apply for Learning License</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('learning_license') }}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Personal Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Personal Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">{{ form.name.label }} <span class="text-danger">*</span></label>
+                                    {{ form.name(class="form-control", id="name", placeholder="Enter full name") }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.name.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="dob" class="form-label">{{ form.dob.label }} <span class="text-danger">*</span></label>
+                                    {{ form.dob(class="form-control", id="dob", type="date") }}
+                                    {% if form.dob.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.dob.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">{{ form.gender.label }} <span class="text-danger">*</span></label>
+                                    {{ form.gender(class="form-select", id="gender") }}
+                                    {% if form.gender.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.gender.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="place_of_birth" class="form-label">{{ form.place_of_birth.label }} <span class="text-danger">*</span></label>
+                                    {{ form.place_of_birth(class="form-control", id="place_of_birth", placeholder="Enter place of birth") }}
+                                    {% if form.place_of_birth.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.place_of_birth.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Contact Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">{{ form.phone.label }} <span class="text-danger">*</span></label>
+                                    {{ form.phone(class="form-control", id="phone", placeholder="Enter phone number") }}
+                                    {% if form.phone.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.phone.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">{{ form.email.label }} <span class="text-danger">*</span></label>
+                                    {{ form.email(class="form-control", id="email", placeholder="Enter email address") }}
+                                    {% if form.email.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.email.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Address Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Address Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">{{ form.address.label }} <span class="text-danger">*</span></label>
+                                {{ form.address(class="form-control", id="address", placeholder="Enter full address") }}
+                                {% if form.address.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.address.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="city" class="form-label">{{ form.city.label }} <span class="text-danger">*</span></label>
+                                    {{ form.city(class="form-control", id="city", placeholder="Enter city") }}
+                                    {% if form.city.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.city.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="state" class="form-label">{{ form.state.label }} <span class="text-danger">*</span></label>
+                                    {{ form.state(class="form-control", id="state", placeholder="Enter state") }}
+                                    {% if form.state.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.state.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="zip_code" class="form-label">{{ form.zip_code.label }} <span class="text-danger">*</span></label>
+                                    {{ form.zip_code(class="form-control", id="zip_code", placeholder="Enter ZIP code") }}
+                                    {% if form.zip_code.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.zip_code.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Medical Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="blood_group" class="form-label">{{ form.blood_group.label }} <span class="text-danger">*</span></label>
+                                    {{ form.blood_group(class="form-select", id="blood_group") }}
+                                    {% if form.blood_group.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.blood_group.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="rh_factor" class="form-label">{{ form.rh_factor.label }} <span class="text-danger">*</span></label>
+                                    {{ form.rh_factor(class="form-select", id="rh_factor") }}
+                                    {% if form.rh_factor.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.rh_factor.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Citizenship and Document Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Citizenship and Document Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="citizenship" class="form-label">{{ form.citizenship.label }} <span class="text-danger">*</span></label>
+                                    {{ form.citizenship(class="form-control", id="citizenship", placeholder="Enter citizenship") }}
+                                    {% if form.citizenship.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.citizenship.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="document_type" class="form-label">{{ form.document_type.label }} <span class="text-danger">*</span></label>
+                                    {{ form.document_type(class="form-select", id="document_type") }}
+                                    {% if form.document_type.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.document_type.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="document" class="form-label">{{ form.document.label }}</label>
+                                <div class="input-group">
+                                    {{ form.document(class="form-control", id="document", style="display: none;") }}
+                                    <label for="document" class="input-group-text" id="document-label">Choose file</label>
+                                </div>
+                                <div id="document-preview"></div>
+                                <small class="form-text text-muted">Upload a scanned copy or clear photo of your selected document.</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">I confirm that all information provided is accurate and true.</label>
+                        <div class="invalid-feedback">
+                            You must agree to proceed.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

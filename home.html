@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1>Welcome to Smart Driving License Service</h1>
+    <p class="lead">Hello, {{ username }}! Choose an option below to get started.</p>
+</div>
+
+<div class="row">
+    <!-- Apply for Learning License -->
+    <div class="col-md-4 mb-4">
+        <a href="{{ url_for('learning_license') }}" class="text-decoration-none">
+            <div class="home-button bg-dark text-white">
+                <i class="fas fa-graduation-cap"></i>
+                <h5>Apply for Learning License</h5>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Apply for Driving License -->
+    <div class="col-md-4 mb-4">
+        <a href="{{ url_for('driving_license') }}" class="text-decoration-none">
+            <div class="home-button bg-dark text-white">
+                <i class="fas fa-id-card"></i>
+                <h5>Apply for Driving License</h5>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Renew Driving License -->
+    <div class="col-md-4 mb-4">
+        <a href="{{ url_for('renew_license') }}" class="text-decoration-none">
+            <div class="home-button bg-dark text-white">
+                <i class="fas fa-sync-alt"></i>
+                <h5>Renew Driving License</h5>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Change Details -->
+    <div class="col-md-4 mb-4">
+        <a href="{{ url_for('change_details') }}" class="text-decoration-none">
+            <div class="home-button bg-dark text-white">
+                <i class="fas fa-edit"></i>
+                <h5>Change Details</h5>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Check RC Details -->
+    <div class="col-md-4 mb-4">
+        <a href="{{ url_for('check_rc') }}" class="text-decoration-none">
+            <div class="home-button bg-dark text-white">
+                <i class="fas fa-car"></i>
+                <h5>Check RC Details</h5>
+            </div>
+        </a>
+    </div>
+    
+    <!-- DL Application Status -->
+    <div class="col-md-4 mb-4">
+        <a href="{{ url_for('application_status') }}" class="text-decoration-none">
+            <div class="home-button bg-dark text-white">
+                <i class="fas fa-search"></i>
+                <h5>DL Application Status</h5>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Important Information</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h6><i class="fas fa-info-circle text-info me-2"></i>Required Documents</h6>
+                <ul>
+                    <li>Proof of Identity (Aadhar Card, Passport, Voter ID)</li>
+                    <li>Proof of Address</li>
+                    <li>Recent Passport Size Photographs</li>
+                    <li>Medical Certificate (if applicable)</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6><i class="fas fa-clock text-info me-2"></i>Processing Times</h6>
+                <ul>
+                    <li>Learning License: 7-10 business days</li>
+                    <li>Driving License: 14-21 business days</li>
+                    <li>License Renewal: 5-7 business days</li>
+                    <li>Change of Details: 3-5 business days</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-check-circle me-2"></i>Payment Successful</h4>
+            </div>
+            <div class="card-body text-center">
+                <div class="py-4">
+                    <i class="fas fa-check-circle fa-5x mb-4 text-success"></i>
+                    <h3>Thank You!</h3>
+                    <p class="lead">Your payment has been processed successfully.</p>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0">Application Details</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if license_type == 'Learning License' %}
+                            <p><strong>Application Type:</strong> Learning License</p>
+                            <p><strong>Application ID:</strong> {{ application_id }}</p>
+                            <p><strong>Status:</strong> Processing</p>
+                            <p class="mb-0">Your application is now being processed. You can check the status of your application using the Application ID provided above.</p>
+                        {% elif license_type == 'Driving License' %}
+                            <p><strong>Application Type:</strong> Driving License</p>
+                            <p><strong>Application ID:</strong> {{ application_id }}</p>
+                            <p><strong>License Number:</strong> {{ license_number }}</p>
+                            <p><strong>Status:</strong> Scheduled</p>
+                            <p class="mb-0">Your driving test has been scheduled. Please be present at the RTO office at your selected date and time.</p>
+                        {% elif license_type == 'License Renewal' %}
+                            <p><strong>Application Type:</strong> License Renewal</p>
+                            <p><strong>License Number:</strong> {{ license_number }}</p>
+                            <p><strong>Status:</strong> Renewed</p>
+                            <p class="mb-0">Your license has been renewed. The updated license will be delivered to your registered address.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <p class="mb-0"><i class="fas fa-envelope me-2"></i> A confirmation email has been sent to your registered email address with all the details.</p>
+                </div>
+                
+                <div class="d-grid gap-2 col-6 mx-auto mt-4">
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

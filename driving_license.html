@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Apply for Driving License</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    You must have a Learning License to apply for a Driving License. Please enter your Learning License Application ID below.
+                </div>
+                
+                <form method="POST" action="{{ url_for('driving_license') }}" class="needs-validation" novalidate>
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Learning License Information -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Learning License Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="learning_license_id" class="form-label">{{ form.learning_license_id.label }} <span class="text-danger">*</span></label>
+                                {{ form.learning_license_id(class="form-control", id="learning_license_id", placeholder="Enter your Learning License Application ID") }}
+                                {% if form.learning_license_id.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.learning_license_id.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">This is the Application ID you received when you applied for your Learning License.</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Test Booking Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Driving Test Appointment</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Please note that test dates must be at least 7 days from today and not more than 60 days in the future.
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="test_date" class="form-label">{{ form.test_date.label }} <span class="text-danger">*</span></label>
+                                    {{ form.test_date(class="form-control", id="test_date", type="date") }}
+                                    {% if form.test_date.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.test_date.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="test_time" class="form-label">{{ form.test_time.label }} <span class="text-danger">*</span></label>
+                                    {{ form.test_time(class="form-select", id="test_time") }}
+                                    {% if form.test_time.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.test_time.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-secondary">
+                                <h6 class="mb-2"><i class="fas fa-car me-2"></i>Driving Test Requirements:</h6>
+                                <ul class="mb-0">
+                                    <li>Bring your original identity documents</li>
+                                    <li>Your Learning License must be valid on the day of the test</li>
+                                    <li>Arrive 30 minutes before your scheduled time</li>
+                                    <li>Bring a vehicle of the category you are applying for</li>
+                                    <li>Wear comfortable clothing and appropriate footwear</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">I confirm that all information provided is accurate and true.</label>
+                        <div class="invalid-feedback">
+                            You must agree to proceed.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Check Application Status</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('application_status') }}">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        <label for="application_id" class="form-label">{{ form.application_id.label }} <span class="text-danger">*</span></label>
+                        {{ form.application_id(class="form-control", id="application_id", placeholder="Enter your Application ID") }}
+                        {% if form.application_id.errors %}
+                            <div class="text-danger">
+                                {% for error in form.application_id.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">This is the Application ID you received when you applied for your license.</small>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+                
+                {% if application %}
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Application Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Application ID:</strong> {{ application.id }}</p>
+                                    <p><strong>Application Type:</strong> {{ application.type }}</p>
+                                    <p><strong>Apply Date:</strong> {{ application.apply_date.strftime('%d-%m-%Y') }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Current Status:</strong> 
+                                        <span class="badge 
+                                            {% if application.status == 'Processing' %}bg-warning
+                                            {% elif application.status == 'Approved' %}bg-success
+                                            {% elif application.status == 'Rejected' %}bg-danger
+                                            {% elif application.status == 'Scheduled' %}bg-info
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ application.status }}
+                                        </span>
+                                    </p>
+                                    <p><strong>Estimated Processing Time:</strong> {{ application.estimate }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="status-box 
+                                {% if application.status == 'Processing' %}status-processing
+                                {% elif application.status == 'Approved' %}status-approved
+                                {% elif application.status == 'Rejected' %}status-rejected
+                                {% elif application.status == 'Scheduled' %}status-pending{% endif %}">
+                                
+                                {% if application.status == 'Processing' %}
+                                    <h6><i class="fas fa-spinner fa-spin me-2"></i>Your application is currently being processed</h6>
+                                    <p class="mb-0">Please allow {{ application.estimate }} for the review to complete.</p>
+                                {% elif application.status == 'Approved' %}
+                                    <h6><i class="fas fa-check-circle me-2"></i>Your application has been approved</h6>
+                                    <p class="mb-0">Your license will be delivered to your registered address.</p>
+                                {% elif application.status == 'Rejected' %}
+                                    <h6><i class="fas fa-times-circle me-2"></i>Your application has been rejected</h6>
+                                    <p class="mb-0">Please contact our support team for more information.</p>
+                                {% elif application.status == 'Scheduled' %}
+                                    <h6><i class="fas fa-calendar-check me-2"></i>Your driving test has been scheduled</h6>
+                                    <p class="mb-0">Please arrive on time for your driving test as per the selected slot.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

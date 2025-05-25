@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Change License Details</h4>
+            </div>
+            <div class="card-body">
+                {% if form and form.address.data %}
+                    <!-- Form for updating details after license verification -->
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        License verified successfully. You can now update your details.
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('change_details') }}" class="needs-validation" novalidate>
+                        {{ form.hidden_tag() }}
+                        {{ form.license_number() }}
+                        
+                        <!-- Address Information Section -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="mb-0">New Address Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">{{ form.address.label }} <span class="text-danger">*</span></label>
+                                    {{ form.address(class="form-control", id="address", placeholder="Enter new address") }}
+                                    {% if form.address.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.address.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="city" class="form-label">{{ form.city.label }} <span class="text-danger">*</span></label>
+                                        {{ form.city(class="form-control", id="city", placeholder="Enter new city") }}
+                                        {% if form.city.errors %}
+                                            <div class="text-danger">
+                                                {% for error in form.city.errors %}
+                                                    <small>{{ error }}</small>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        <label for="state" class="form-label">{{ form.state.label }} <span class="text-danger">*</span></label>
+                                        {{ form.state(class="form-control", id="state", placeholder="Enter new state") }}
+                                        {% if form.state.errors %}
+                                            <div class="text-danger">
+                                                {% for error in form.state.errors %}
+                                                    <small>{{ error }}</small>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        <label for="zip_code" class="form-label">{{ form.zip_code.label }} <span class="text-danger">*</span></label>
+                                        {{ form.zip_code(class="form-control", id="zip_code", placeholder="Enter new ZIP code") }}
+                                        {% if form.zip_code.errors %}
+                                            <div class="text-danger">
+                                                {% for error in form.zip_code.errors %}
+                                                    <small>{{ error }}</small>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">{{ form.phone.label }} <span class="text-danger">*</span></label>
+                                    {{ form.phone(class="form-control", id="phone", placeholder="Enter new phone number") }}
+                                    {% if form.phone.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.phone.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            After submission, your details will be updated immediately. An SMS and email notification will be sent to your registered mobile number and email address.
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                            <label class="form-check-label" for="termsCheck">I confirm that all information provided is accurate and true.</label>
+                            <div class="invalid-feedback">
+                                You must agree to proceed.
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                    
+                {% else %}
+                    <!-- Initial form for license verification -->
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        To change the details on your license, please enter your Driving License Number for verification.
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('change_details') }}" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="license_number" class="form-label">Driving License Number <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="license_number" name="license_number" placeholder="Enter your Driving License Number" required>
+                            <div class="invalid-feedback">
+                                Please enter your driving license number.
+                            </div>
+                            <small class="form-text text-muted">This is the License Number printed on your Driving License.</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Verify License</button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4">
+                        <div class="alert alert-secondary">
+                            <h6 class="mb-2"><i class="fas fa-list me-2"></i>You can update the following details:</h6>
+                            <ul class="mb-0">
+                                <li>Residential Address</li>
+                                <li>City and State</li>
+                                <li>PIN Code</li>
+                                <li>Phone Number</li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

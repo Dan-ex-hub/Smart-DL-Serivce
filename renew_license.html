@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Renew Driving License</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    You can renew your driving license up to 6 months before the expiry date or within 1 year after expiry.
+                </div>
+                
+                <form method="POST" action="{{ url_for('renew_license') }}" class="needs-validation" novalidate>
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- License Information -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">License Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="license_number" class="form-label">{{ form.license_number.label }} <span class="text-danger">*</span></label>
+                                {{ form.license_number(class="form-control", id="license_number", placeholder="Enter your Driving License Number") }}
+                                {% if form.license_number.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.license_number.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">This is the License Number printed on your Driving License.</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="renewal_reason" class="form-label">{{ form.renewal_reason.label }} <span class="text-danger">*</span></label>
+                                {{ form.renewal_reason(class="form-select", id="renewal_reason") }}
+                                {% if form.renewal_reason.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.renewal_reason.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-secondary">
+                        <h6 class="mb-2"><i class="fas fa-sticky-note me-2"></i>Renewal Notes:</h6>
+                        <ul class="mb-0">
+                            <li>Your renewed license will have a validity of 10 years from the date of renewal</li>
+                            <li>A renewal fee of ₹750 will be charged</li>
+                            <li>The renewed license will be delivered to your registered address</li>
+                            <li>If your license expired more than a year ago, you may need to apply for a new license</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">I confirm that all information provided is accurate and true.</label>
+                        <div class="invalid-feedback">
+                            You must agree to proceed.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
